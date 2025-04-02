@@ -16,39 +16,6 @@ const url = `mongodb+srv://brandonwilletts:${password}@cluster0.qt70dcd.mongodb.
 mongoose.set("strictQuery", false);
 mongoose.connect(url);
 
-const noteSchema = new mongoose.Schema({
-  content: String,
-  important: Boolean,
-});
-
-noteSchema.set("toJSON", {
-  transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString();
-    delete returnedObject._id;
-    delete returnedObject.__v;
-  },
-});
-
-const Note = mongoose.model("Note", noteSchema);
-
-let notes = [
-  {
-    id: "1",
-    content: "HTML is easy",
-    important: true,
-  },
-  {
-    id: "2",
-    content: "Browser can execute only JavaScript",
-    important: false,
-  },
-  {
-    id: "3",
-    content: "GET and POST are the most important methods of HTTP protocol",
-    important: true,
-  },
-];
-
 app.get("/", (request, response) => {
   response.send("<h1>Hello World!</h1>");
 });
