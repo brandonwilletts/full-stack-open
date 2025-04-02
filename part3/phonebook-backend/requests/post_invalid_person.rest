@@ -1,0 +1,13 @@
+POST http://localhost:3001/api/persons/ HTTP/1.1
+content-type: application/json
+
+{
+    "id": 53454443,
+    //"name": "Jim Stevens",
+    "name": "Arto Hellas",
+    "number": "3938398"
+}
+
+###
+
+GET http://localhost:3001/api/persons/
