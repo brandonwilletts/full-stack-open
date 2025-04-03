@@ -1,13 +1,11 @@
 const mongoose = require("mongoose");
 
+// Connect to MongoDB database via Mongoose
 mongoose.set("strictQuery", false);
-
 const url = process.env.MONGODB_URI;
-
-console.log("connecting to", url);
+console.log("connecting to MongoDB...");
 mongoose
   .connect(url)
-
   .then((result) => {
     console.log("connected to MongoDB");
   })
@@ -15,16 +13,14 @@ mongoose
     console.log("error connecting to MongoDB:", error.message);
   });
 
-const noteSchema = new mongoose.Schema({
-  content: {
-    type: String,
-    minLength: 5,
-    required: true,
-  },
-  important: Boolean,
+//Creates a data schema for Person
+const personSchema = new mongoose.Schema({
+  name: String,
+  number: String,
 });
 
-noteSchema.set("toJSON", {
+// Modifies the Person objects returned by Mongoose
+personSchema.set("toJSON", {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
@@ -32,4 +28,4 @@ noteSchema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model("Note", noteSchema);
+module.exports = mongoose.model("Person", personSchema);

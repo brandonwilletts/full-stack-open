@@ -10,7 +10,6 @@ const password = process.argv[2];
 const url = `mongodb+srv://brandonwilletts:${password}@cluster0.qt70dcd.mongodb.net/noteApp?retryWrites=true&w=majority&appName=Cluster0`;
 
 mongoose.set("strictQuery", false);
-
 mongoose.connect(url);
 
 // Schema
@@ -23,16 +22,18 @@ const noteSchema = new mongoose.Schema({
 const Note = mongoose.model("Note", noteSchema);
 
 // Creates a Note object using the Note model
-const note = new Note({
-  content: "Mongoose makes things easy",
-  important: true,
-});
+// const note = new Note({
+//   content: "Mongoose makes things easy",
+//   important: true,
+// });
 
 // Saves the new Note object to the database
 // note.save().then((result) => {
 //   console.log("note saved!");
 //   mongoose.connection.close();
 // });
+
+// person.save().then((savedPerson) => response.json(savedPerson));
 
 // Fetches notes from the database
 Note.find({}).then((result) => {
