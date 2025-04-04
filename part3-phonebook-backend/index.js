@@ -65,9 +65,11 @@ app.delete("/api/persons/:id", (request, response, next) => {
 app.put("/api/persons/:id", (request, response, next) => {
   Person.findByIdAndUpdate(request.params.id, {
     number: request.body.number,
-  }).then((updatedPerson) => {
-    response.json(updatedPerson);
-  });
+  })
+    .then((updatedPerson) => {
+      response.json(updatedPerson);
+    })
+    .catch((error) => next(error));
 });
 
 // POST Requests
