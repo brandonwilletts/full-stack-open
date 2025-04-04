@@ -24,14 +24,23 @@ const App = () => {
       number: newNumber,
     };
     if (!persons.some((person) => person.name == newName)) {
-      personService.create(personObject).then((returnedPerson) => {
-        setPersons(persons.concat(returnedPerson));
-        setNotificationClass("success");
-        setNotificationMessage(`${returnedPerson.name} has been added`);
-        setTimeout(() => {
-          setNotificationMessage(null);
-        }, 2000);
-      });
+      personService
+        .create(personObject)
+        .then((returnedPerson) => {
+          setPersons(persons.concat(returnedPerson));
+          setNotificationClass("success");
+          setNotificationMessage(`${returnedPerson.name} has been added`);
+          setTimeout(() => {
+            setNotificationMessage(null);
+          }, 2000);
+        })
+        .catch((error) => {
+          setNotificationClass("error");
+          setNotificationMessage(error.response.data.error);
+          setTimeout(() => {
+            setNotificationMessage(null);
+          }, 2000);
+        });
     } else {
       const existingPerson = persons.find((person) => person.name == newName);
       personService
@@ -70,6 +79,9 @@ const App = () => {
         setPersons(persons.filter((person) => person.id != deletedPerson.id));
       });
     }
+    personService.getAll().then((initialPersons) => {
+      setPersons(initialPersons);
+    });
   };
 
   const handleNameChange = (event) => {
