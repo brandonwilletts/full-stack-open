@@ -15,8 +15,22 @@ mongoose
 
 //Creates a data schema for Person
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
+  name: {
+    type: String,
+    minLength: 3,
+    required: true,
+  },
+  number: {
+    type: String,
+    minLength: 8,
+    validate: {
+      validator: (v) => {
+        return /^\d{2,3}-[0-9]+$/.test(v);
+      },
+      message: "Invalid phone number format",
+    },
+    required: true,
+  },
 });
 
 // Modifies the Person objects returned by Mongoose
