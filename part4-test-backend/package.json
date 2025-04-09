@@ -1,9 +1,9 @@
 {
-  "name": "part4-bloglist-backend",
+  "name": "part4-test-backend",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "node --test",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "node --watch index.js"
   },
@@ -11,10 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^5.1.0",
-    "lodash": "^4.17.21",
-    "mongoose": "^8.13.2"
+    "express": "^5.1.0"
   }
 }
