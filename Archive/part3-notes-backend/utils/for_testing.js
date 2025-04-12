@@ -5,7 +5,7 @@ const reverse = (string) => {
     .join('')
 }
 
-const average = (array) => {
+const average = array => {
   const reducer = (sum, item) => {
     return sum + item
   }
