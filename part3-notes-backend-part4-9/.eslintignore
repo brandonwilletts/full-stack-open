@@ -1,2 +1,4 @@
 dist
+npm_modules
+.env
 .eslintrc.js

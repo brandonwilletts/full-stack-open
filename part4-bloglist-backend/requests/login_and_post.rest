@@ -1,0 +1,27 @@
+POST http://localhost:3001/api/login/ HTTP/1.1
+content-type: application/json
+
+{
+    "username": "stevejenkins",
+	"password": "stevejenkins123"
+}
+
+###
+
+POST http://localhost:3001/api/blogs/
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN0ZXZlamVua2lucyIsImlkIjoiNjdmYWU5YmI2MjliYmY4M2I0OWNiNjE3IiwiaWF0IjoxNzQ0NTAzNzI0fQ.ozK9BsYoCqONhOldWJZIwfu2sKWEc0tWS34iaoJWQ4s
+
+{
+    "title": "Sample blog post 2",
+    "author": "Paul Paulson",
+    "url": "https://www.google.com",
+    "likes": 8
+}
+
+###
+
+//Paste Bearer AND ID!
+DELETE http://localhost:3001/api/blogs/67fb03c0638b22d7ecdec6fa
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN0ZXZlamVua2lucyIsImlkIjoiNjdmYWU5YmI2MjliYmY4M2I0OWNiNjE3IiwiaWF0IjoxNzQ0NTAzNzI0fQ.ozK9BsYoCqONhOldWJZIwfu2sKWEc0tWS34iaoJWQ4s

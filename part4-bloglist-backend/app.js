@@ -1,27 +1,32 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const config = require('./utils/config')
-const logger = require('./utils/logger')
-const blogsRouter = require('./controllers/blogs')
-const middleware = require('./utils/middleware')
+const express = require('express');
+const mongoose = require('mongoose');
+const config = require('./utils/config');
+const logger = require('./utils/logger');
+const loginRouter = require('./controllers/login');
+const blogsRouter = require('./controllers/blogs');
+const usersRouter = require('./controllers/users');
+const middleware = require('./utils/middleware');
 
-const app = express()
+const app = express();
 
 mongoose
   .connect(config.MONGODB_URI)
   .then(() => {
-    logger.info('Connected to MongoDB')
+    logger.info('Connected to MongoDB');
   })
   .catch((error) => {
-    logger.error('Error connecting to MongoDB:', error.message)
-  })
+    logger.error('Error connecting to MongoDB:', error.message);
+  });
 
-app.use(express.json())
-app.use(middleware.requestLogger)
+app.use(express.json());
+app.use(middleware.requestLogger);
+app.use(middleware.tokenExtractor);
 
-app.use('/api/blogs', blogsRouter)
+app.use('/api/login', loginRouter);
+app.use('/api/blogs', blogsRouter);
+app.use('/api/users', usersRouter);
 
-app.use(middleware.unknownEndpoint)
-app.use(middleware.errorHandler)
+app.use(middleware.unknownEndpoint);
+app.use(middleware.errorHandler);
 
-module.exports = app
+module.exports = app;

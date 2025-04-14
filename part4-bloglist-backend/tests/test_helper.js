@@ -1,3 +1,6 @@
+const User = require("../models/user");
+const Blog = require("../models/blog");
+
 const initialBlogs = [
     {
         title: "React patterns",
@@ -37,4 +40,28 @@ const initialBlogs = [
     }
 ];
 
-module.exports = { initialBlogs };
+const initialUsers = [
+    {
+        username: "stevejenkins",
+        name: "Steve Jenkins",
+        password: "stevejenkins123",
+    },
+    {
+        username: "billsimmons",
+        name: "Bill Simmons",
+        password: "billsimmons123",
+    }
+];
+
+const usersInDB = async () => {
+    const users = await User.find({});
+    return users.map(user => user.toJSON());
+};
+
+const blogsInDB = async () => {
+    const blogs = await Blog.find({});
+    return blogs.map(blog => blog.toJSON());
+};
+
+
+module.exports = { initialBlogs, initialUsers, usersInDB, blogsInDB };
