@@ -1,9 +1,0 @@
-POST http://localhost:3001/api/blogs/ HTTP/1.1
-content-type: application/json
-
-{
-    "title": "Sample blog post 2",
-    "author": "Paul Paulson",
-    "url": "https://www.google.com",
-    "likes": 8
-}
