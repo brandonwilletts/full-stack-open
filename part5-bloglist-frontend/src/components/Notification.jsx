@@ -4,7 +4,7 @@ const Notification = ({ message, className }) => {
   }
 
   return (
-    <div className={className}>
+    <div className={className} data-testid='notification'>
       {message}
     </div>
   )

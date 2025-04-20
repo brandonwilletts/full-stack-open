@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "part5-bloglist-frontend",
+			"path": "part5-bloglist-frontend"
+		},
+		{
+			"name": "part4-bloglist-backend",
+			"path": "part4-bloglist-backend"
+		},
+		{
+			"name": "part5-bloglist-e2e",
+			"path": "part5-bloglist-e2e"
+		}
+	],
+	"settings": {}
+}

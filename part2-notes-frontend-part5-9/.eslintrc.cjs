@@ -18,30 +18,31 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     "indent": [
-      "error",
-      "tab"
+        "error",
+        2  
     ],
     "linebreak-style": [
-      "error",
-      "unix"
+        "error",
+        "unix"
     ],
     "quotes": [
-      "error",
-      "single"
+        "error",
+        "single"
     ],
     "semi": [
-      "error",
-      "never"
+        "error",
+        "never"
     ],
     "eqeqeq": "error",
     "no-trailing-spaces": "error",
     "object-curly-spacing": [
-      "error", "always"
+        "error", "always"
     ],
     "arrow-spacing": [
-      "error", { "before": true, "after": true }
+        "error", { "before": true, "after": true }
     ],
     "no-console": 0,
+    "react/prop-types": 0,
     "react/react-in-jsx-scope": "off",
     "react/prop-types": 0,
     "no-unused-vars": 0

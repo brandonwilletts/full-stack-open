@@ -1,0 +1,10 @@
+PUT http://localhost:3001/api/blogs/67fee840eb2ecb91cb75e107
+content-type: application/json
+
+{
+    "title": "The Rural Juror",
+    "author": "Steve Billson",
+    "url": "www.google.com",
+    "likes": 1,
+    "user": "67fedbc8381770e9732fde03"
+  }

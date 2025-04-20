@@ -59,7 +59,7 @@ const App = () => {
             setNotificationMessage(null);
           }, 2000);
         })
-        .catch((error) => {
+        .catch(() => {
           setNotificationClass("error");
           setNotificationMessage(
             `Information of ${existingPerson.name} has already been removed from server`
