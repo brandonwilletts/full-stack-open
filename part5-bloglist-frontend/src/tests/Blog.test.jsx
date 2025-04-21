@@ -56,6 +56,7 @@ test('renders blog URL and likes when view button clicked', async () => {
 	render(<Blog blog={blog} user={currentUser} />)
 
 	const user = userEvent.setup()
+
 	const button = screen.getByText('view')
 	await user.click(button)
 
