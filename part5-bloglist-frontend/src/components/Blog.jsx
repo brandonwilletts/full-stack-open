@@ -1,32 +1,45 @@
+import { updateBlog, deleteBlog, postComment } from '../reducers/blogReducer'
+import { setNotification } from '../reducers/notificationReducer'
+import { useDispatch, useSelector } from 'react-redux'
+import { BrowserRouter as Router, Routes, Route, Link, useMatch, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-const Blog = ({ blog, addLike, deleteBlog, user }) => {
-	const [visible, setVisible] = useState(false)
-	const [buttonLabel, setButtonLabel] = useState('view')
+const Blog = () => {
+	const user = useSelector(state => state.loggedIn)
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
-	const hideWhenVisible = { display: visible ? 'none' : '' }
-	const showWhenVisible = { display: visible ? '' : 'none' }
+	const match = useMatch('/blogs/:id')
+	const blogs = useSelector(state => state.blog)
 
-	const toggleVisibility = () => {
-		setVisible(!visible)
-		setButtonLabel(visible ? 'view' : 'hide')
+	const [newComment, setNewComment] = useState('')
+
+	const blog = match
+		? blogs.find(blog => blog.id === String(match.params.id))
+		: null
+
+	if (!blog) {
+		return null
 	}
 
 	const handleLike = () => {
 		const newLikes = blog.likes + 1
-		const newBlog = {
-			title: blog.title,
-			author: blog.author,
-			url: blog.url,
+		const blogToUpdate = {
+			...blog,
 			likes: newLikes,
-			user: blog.user.id
 		}
-		addLike(blog.id, newBlog)
+		dispatch(updateBlog(blogToUpdate))
 	}
 
 	const handleDelete = () => {
 		if (window.confirm(`Remove blog "${blog.title}" by ${blog.author}?`)) {
-			deleteBlog(blog.id)
+			try {
+				dispatch(deleteBlog(blog.id))
+				dispatch(setNotification('Successfully deleted', 'success'))
+			} catch (error) {
+				dispatch(setNotification(`Deletion failed: ${error.message}`, 'error'))
+			}
+			navigate('/')
 		}
 	}
 
@@ -34,28 +47,37 @@ const Blog = ({ blog, addLike, deleteBlog, user }) => {
 		return <button onClick={handleDelete}>remove</button>
 	}
 
-	const blogStyle = {
-		paddingTop: 10,
-		paddingLeft: 2,
-		border: 'solid',
-		borderWidth: 1,
-		marginBottom: 5
+	const handleCreateComment = (event) => {
+		event.preventDefault()
+		dispatch(postComment(blog.id, newComment))
+		setNewComment('')
 	}
 
 	return (
-		<div className='blog' style={blogStyle}>
+		<div className='blog'>
+			<h2>{blog.title} by {blog.author}</h2>
 			<div>
-				{blog.title} {blog.author}
-				<button onClick={toggleVisibility}>{buttonLabel}</button>
-			</div>
-			<div style={showWhenVisible}>
-				<div>{blog.url}</div>
+				<div><a href={`http://${blog.url}`}>{blog.url}</a></div>
 				<div>
 					likes: {blog.likes}
 					<button onClick={handleLike}>like</button></div>
-				<div>{blog.user.name}</div>
+				<div>added by {blog.user.name}</div>
 				{blog.user.username === user.username && deleteButton()}
 			</div>
+			<h3>comments</h3>
+			<form onSubmit={handleCreateComment}>
+				<input
+					type="text"
+					value={newComment}
+					name="Comment"
+					data-testid='comment'
+					onChange={({ target }) => setNewComment(target.value)}
+				/>
+				<button type="submit">add comment</button>
+			</form>
+			{blog.comments.map(comment =>
+				<li key={comment}>{comment}</li>
+			)}
 		</div>
 	)
 }

@@ -1,22 +1,34 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
+import { login } from '../reducers/loggedInReducer'
+import { setNotification } from '../reducers/notificationReducer'
 
-const LoginForm = ({ handleLogin }) => {
+const LoginForm = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 
-	const submitLogin = (event) => {
-		event.preventDefault()
-		handleLogin({
-			username,
-			password
-		})
+	const dispatch = useDispatch()
+
+	const resetFields = () => {
 		setUsername('')
 		setPassword('')
 	}
 
+	const handleLogin = async (event) => {
+		event.preventDefault()
+		const credentials = { username, password }
+		try {
+			dispatch(login(credentials))
+			dispatch(setNotification('Successfully logged in', 'success'))
+		} catch (error) {
+			dispatch(setNotification('Invalid username or password', 'error'))
+		}
+		resetFields()
+	}
+
 	return (
-		<form onSubmit={submitLogin} data-testid='loginForm'>
+		<form onSubmit={handleLogin} data-testid='loginForm'>
 			<div>
 				username:
 				<input
@@ -43,9 +55,5 @@ const LoginForm = ({ handleLogin }) => {
 }
 
 LoginForm.displayName = 'LoginForm'
-
-LoginForm.propTypes = {
-	handleLogin: PropTypes.func.isRequired
-}
 
 export default LoginForm
