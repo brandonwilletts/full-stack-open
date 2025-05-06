@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/patients HTTP/1.1
+content-type: application/json
+
+{
+		"name": "Jim Stevens",
+		"dateOfBirth": "1973-04-25",
+		"ssn": "250470-444E",
+		"gender": "male",
+		"occupation": "Bee keeper"
+}
